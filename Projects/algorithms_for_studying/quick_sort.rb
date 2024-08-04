@@ -13,3 +13,14 @@ class Array
     return *left.quicksort, pivot, *right.quicksort
   end
 end
+
+#or if not wanting to meta-program 
+
+def quicksort(arr)
+  return [] if arr.empty?
+
+  pivot = arr.delete_at(rand(arr.length))
+  left, right = arr.partition{|i| i < pivot }
+
+  return [quicksort(left), pivot, quicksort(right)].flatten
+end
