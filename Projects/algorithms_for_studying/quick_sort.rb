@@ -21,7 +21,7 @@ def quicksort(arr)
 
   temp = arr.dup
 
-  pivot = temp.delete_at(rand(arr.length))
+  pivot = temp.delete_at(rand(temp.length))
   left, right = temp.partition{|i| i < pivot }
 
   return [quicksort(left), pivot, quicksort(right)].flatten
