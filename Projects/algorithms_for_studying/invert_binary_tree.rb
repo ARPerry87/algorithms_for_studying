@@ -1,7 +1,6 @@
-def invert_tree(head)
-  return unless head 
+def invert_tree(root)
+  return if root.nil?
 
-  head.right = invert_tree(head.left)
-  head.left = invert_tree(head.right)
-  head
+  root.right, root.left = invert_tree(root.left), invert_tree(root.right)
+  root
 end

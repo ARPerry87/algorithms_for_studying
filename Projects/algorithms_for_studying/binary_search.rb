@@ -3,7 +3,7 @@ def binary_search(arr, key)
   high = arr.length - 1
 
   while low <= high 
-    mid = low + ((high - low) / 2)
+    mid = low + ((high - low) / 2).floor
 
     if arr[mid] == key
       return mid

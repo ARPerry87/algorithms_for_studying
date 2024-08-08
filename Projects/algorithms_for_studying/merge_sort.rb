@@ -1,17 +1,15 @@
 def merge_sort(arr)
-  if arr.length <= 1 
-    arr
-  else
-    mid = (arr.length / 2).floor #so ruby doesn't round
-    left = merge_sort(arr[0..mid - 1])
-    right = merge_sort(arr[mid..arr.length])
-    merge(left, right)
-  end
+  return arr if arr.length <= 1
+  mid = (arr.length / 2).floor
+  left = merge_sort(arr[0..mid - 1])
+  right = merge_sort(arr[mid..arr.length])
+
+  merge(left, right)
 end
 
 def merge(left, right)
   if left.empty?
-    right
+    right 
   elsif right.empty?
     left
   elsif left.first < right.first
