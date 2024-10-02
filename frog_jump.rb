@@ -1,7 +1,4 @@
 def solution(x, y, z)
-  if x == y
-    return 0
-  else
-    return (Float(y-x)/z).ceil
-  end
+  return 0 if y == x
+  ((y.to_f - x) / z).ceil
 end

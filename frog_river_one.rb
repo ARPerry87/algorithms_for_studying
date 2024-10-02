@@ -1,15 +1,13 @@
 # you can write to stdout for debugging purposes, e.g.
 # puts "this is a debug message"
 
-def solution(x, a)
-  # write your code in Ruby 2.2
-  path = {}
-
-  a.each_with_index do |element, i|
-    path[element] = true
-    return i if path.size == x
+def frog_river_one(x, a)
+  h = Hash[(1..x).each_with_object(true).to_a]
+  a.each_with_index do |e, i|
+    h.delete(e)
+    return i if h.empty?
   end
-  -1
+ -1
 end
 
 require 'minitest/autorun'
