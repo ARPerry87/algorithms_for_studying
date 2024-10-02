@@ -1,4 +1,4 @@
-def solution(s, p, q)
+def solution(s: "", p: [], q: [])
   res = []
   dna_length = s.size
   mapping = {"A": 1, "C": 2, "G": 3, "T": 4}
