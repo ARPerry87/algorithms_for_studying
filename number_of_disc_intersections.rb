@@ -1,4 +1,4 @@
-r
+
 def solution(a)
   discs_count = a.length            
   range_upper = Array.new(discs_count, 0)   
