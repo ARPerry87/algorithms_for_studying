@@ -72,7 +72,7 @@ def maximum_depth(root)
   depth = 0
 
   while !queue.empty?
-    for i in 0..queue.length - 1
+    queue.length.times do
       node = queue.shift
       queue.push(node.left) if node.left
       queue.push(node.right) if node.right
