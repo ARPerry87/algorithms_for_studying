@@ -31,3 +31,14 @@ def contains_duplicates(nums)
     return true unless set.add?(num)
   end.empty?
 end
+
+def contains_duplicates(nums)
+  hashset = Set.new
+  for n in nums
+    if hashset.include?(n)
+      return true
+    end
+    hashset.add(n)
+  end
+  return false
+end

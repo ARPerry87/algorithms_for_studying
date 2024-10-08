@@ -44,3 +44,26 @@ def product_except_self(nums)
 
   res
 end
+
+# another solution
+
+def product_except_self(nums)
+  length = nums.length
+  left = Array.new(length, 1)
+  right = Array.new(length, 1)
+  res = Array.new(length, 1)
+
+  (1...length).each do |i|
+    left[i] = left[i - 1] * nums[i - 1]
+  end
+
+  (length - 2).downto(0) do |i|
+    right[i] = right[i + 1] * nums[i + 1]
+  end
+
+  (0...length).each do |i|
+    res[i] = left[i] * right[i]
+  end
+
+  res
+end
