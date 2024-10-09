@@ -37,3 +37,22 @@ def max_area(height)
   # we then return the maximum area from our res array
   res.max
 end
+
+# optimized
+
+def max_area(height)
+  res = 0
+
+  l, r = 0, height.length - 1
+
+  while l < r
+    area = [height[l], height[r]].min * (r - l)
+    res = [res, area].max
+    if height[l] < height[r]
+      l += 1
+    else
+      r -= 1
+    end
+  end
+  res
+end
