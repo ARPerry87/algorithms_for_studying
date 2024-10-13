@@ -29,9 +29,24 @@ end
 # or 
 
 def length_of_lis(nums)
+  # I prefer this solution in terms of readability
+  # we want to return 0 if the array is empty for edge cases
+  # then we want to create an array of the same size as the input array and set all the values to 1
+  # we want to set all the values to 1 because the minimum length of the longest increasing subsequence is 1 by default
+  return 0 if nums.empty?
   lis = [1] * nums.size
+
+  # we want to iterate through the array and compare the values
+  
   (1...nums.size).each do |i|
+    # we want to iterate through the array again and compare the values to see if the current value is greater than the previous value
+    # if it is, we can add 1 to the previous value
+    # if it's not, we can take the maximum of the previous value
+    # we want to do this because we want to ensure that we're getting the longest increasing subsequence
+    # essentially we have a pointer at both i and j, where j is less than i and we're comparing the values at those indexes
     (0...i).each do |j|
+      # if the value at j is less than the value at i, we can add 1 to the value at i and move to the next value
+      # if the value at j is not less than the value at i, we can take the maximum of the value at i and the value at j
       lis[i] = [lis[i], lis[j] + 1].max if nums[j] < nums[i]
     end
   end 
