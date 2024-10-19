@@ -1,0 +1,130 @@
+Euclids algorithm (GCD)
+Essentially like untangling headphones, keep dividing until you find the greatest common demonenator 
+
+input: two integers m and n, >= 0 and not both 0
+while n! = 0 {
+    r = m mod n
+    m = n 
+    n = r
+}
+return m
+
+in ruby 
+
+while n!= 0
+  r = m % n
+  m = n
+  n = 4
+end
+return m 
+
+steps for algorithm design: 
+1. Understand the problem
+2. Figure out what your computer is capable of (sequential vs parallel)
+3. Choose exact or approximate
+4. Pick a data structure 
+5. Consider algorithm design techniques (Prove correctness, analyze algorithm, code it)
+
+Important problem types: 
+Sorting
+Searching
+String processing
+Graph Problems
+Combinatorial
+Geometric 
+Numeric
+
+Time effenciency is how fast the algorithm takes to run
+Space effenciency is how much space the algorithm needs to compute the result
+
+Basic operation: 
+The most commonly used operation 
+
+Order of Growth
+c, log n, log(n^2), (log n), n^(1/3), n^(1/2), n, n(log n) ,n^2, n^3, 2^n, n!
+
+For binary search these are the steps using First and Last index in a sorted array: 
+arr = [2, 4, 5, 5, 5, 5, 6, 8, 10]
+
+For binary search we want to have two pointers, one left, and one right. 
+The left  pointer should start at the index[0] aka the start of the array, and should go until the mid.
+The right pointer should go from the mid to the end of the array, so say we have a target of 5.
+
+this would then look like this: 
+
+def binary_search(arr, target)
+    return [-1,-1] if arr.empty? # or zero if the constraint calls for it
+    
+    l, r = 0, arr.length - 1
+
+    while l <= r
+        mid = (l + r) / 2
+
+        if arr[mid] == target
+            return mid
+        elsif arr[mid] > target
+            r = mid - 1
+        else
+            l = mid + 1
+        end
+    end
+
+    return -1
+end
+
+# Example usage:
+arr = [2, 4, 5, 5, 5, 5, 6, 8, 10]
+target = 5
+puts binary_search(arr, target)  # Output: Index of one of the 5s, e.g., 2
+
+For problems like the kth largets element, where k = n and an arr is being looped over, you would want to find the largest element after the k amount of removals takes place.
+
+example: 
+[4, 2, 9, 7, 5, 6, 7, 1, 3]
+k = 4
+
+we want to get the k - 1 so we only get rid of 3 so that our 4th largest is returned
+
+We find the largets element first [9] and remove that 
+Then the second [7] and remove that 
+Third is [7]
+4th largest and our target = [6]
+
+we should use ruby's heapify gem in order to easily heapfiy the array as we want the maximum values to be popped off the top of the heap until k - 1
+
+we should use a priority queue, as a sort is fast but will lag in certain situations
+
+require 'heapify'
+
+def kth_largest(arr, k)
+  # Transform the array to negative values to use min-heap as max-heap
+  arr.map! { |elem| -elem }
+  
+  # Heapify the array
+  arr.heapify!
+  
+  # Pop k-1 elements from the heap
+  (k - 1).times { arr.heap_pop }
+  
+  # Return the k-th largest element (convert back to positive)
+  return -arr.heap_pop
+end
+
+For a symmetric tree question, aka we want to see if it's a mirror of itself 
+
+def are_symmetric(root1, root2)
+  if root1.nil? && root2.nil? # if both subtrees are empty, they are symmetric
+    return true
+  elsif (root1.nil? != root2.nil?) || (root1.val != root2.val) # if one subtree is empty and the other is not, or if the values are not the same, they are not symmetric
+    return false
+  else
+    # recursively check if the left subtree of root1 is symmetric with the right subtree of root2 and vice versa
+    return are_symmetric(root1.left, root2.right) && are_symmetric(root1.right, root2.left)
+  end  
+end
+
+def is_symmetric(root)
+  return true if root.nil? # an empty tree is symmetric
+  return are_symmetric(root.left, root.right) # check if the left and right subtrees are symmetric
+end
+
