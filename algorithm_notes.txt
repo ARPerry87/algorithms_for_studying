@@ -128,3 +128,231 @@ def is_symmetric(root)
   return are_symmetric(root.left, root.right) # check if the left and right subtrees are symmetric
 end
 
+Using backtracking in a problem
+The generate paranthesis problem 
+
+Given an integer n, generate all the valid combinations of n pairs of parentheses
+
+def generate(n)
+  def rec(n, diff, comb, combs) # we use a nested method to make it easier to call
+    if diff < 0 # if diff is less than 0 then we want to return to stop the recursion
+      return
+    elsif n == 0 # else if n is 0 and diff is 0 then add the current combo to the list of combos
+      if diff == 0
+        combs << comb.join
+      end
+    else # we add an opening parentheses '(', increment diff by 1, and do that because we have increased the diff between the opening and closing, then recursively call rec
+      comb << '('
+      rec(n - 1, diff + 1, comb, combs)
+      comb.pop # remove the paran, we do this so we can backtrack and try adding a closing parentheses
+      comb << ')' # then we add a closing paranthesis ')' and decrement diff by 1 and recrusively call rec
+      rec(n - 1, diff - 1, comb, combs) # we decrement diff by one because a closing parentheses decreases the difference between the number of opening and closing parens
+      comb.pop # then we remove the last added paran
+    end
+  end
+
+  combs = []
+  rec(2 * n, 0, [], combs)
+  combs
+end
+
+backtracking algorithms follow a general outline of how they work: 
+1. choose an initial solution
+2. Explore all possible extensions of the current situation
+3. If an extension leads to a solution, return that solution. 
+4. If an extension does not lead to a solution, backtrack to the previous position and try a different extension. 
+5. Repeat steps 2.4 until all possible solutions have been reached. 
+
+Another example: Finding the shortest path through a maze 
+
+Input: a maze represented as a 2d array where 0 represents an open space and 1 a wall. 
+
+1. Start at the starting point 
+2. For each of the four possible directions try moving in that direction
+3. if moving in that direction leads to the end point, return the path taken
+4. If moving in that direction does not lead to the end, backtrack to the previous position and try a different direction
+5. Repeat steps 2-4 until the ending point is reached or all paths have been exhausted. 
+
+def shortest_path_through_maze(maze, start, end)
+  def rec(x, y, maze, path, shortest_path)
+    # Base case: if we reach the end point
+    if [x, y] == end
+      if shortest_path.empty? || path.length < shortest_path.length
+        shortest_path.replace(path.dup)
+      end
+      return
+    end
+
+    # Directions: right, down, left, up
+    directions = [[0, 1], [1, 0], [0, -1], [-1, 0]]
+
+    directions.each do |dx, dy|
+      nx, ny = x + dx, y + dy
+
+      # Check if the new position is within bounds and is an open space
+      if nx >= 0 && ny >= 0 && nx < maze.length && ny < maze[0].length && maze[nx][ny] == 0
+        # Mark the position as visited
+        maze[nx][ny] = 2
+        path << [nx, ny]
+
+        # Recur with the new position
+        rec(nx, ny, maze, path, shortest_path)
+
+        # Backtrack: unmark the position and remove from path
+        maze[nx][ny] = 0
+        path.pop
+      end
+    end
+  end
+
+  shortest_path = []
+  start_x, start_y = start
+  end_x, end_y = end
+
+  # Mark the starting position as visited
+  maze[start_x][start_y] = 2
+  rec(start_x, start_y, maze, [[start_x, start_y]], shortest_path)
+
+  shortest_path
+end
+
+DFS
+What is dfs?
+DFS or depth-first-search is a recursive algorithm that uses the backtracking principle.
+It entails conducting exhaustive searches of all nodes by moving forward if possible and backtracking if necessary.
+To visit the next node, pop the top node from the stack and push all of its nearby nodes into the stack.
+Topological sorting, scheduling problems, graph cycle detection, and solving puzzles with just one solution such as a maze or sudoku all employ dfs.
+Other applications include network analysis, such as determining if a graph is bipartite. 
+
+Graph traversal is a technicque for finding a vertex in a graph, in the search, graph traversal is also used to determine the order in which it visits its vertices.
+The two techniques are dfs and bfs respectively. 
+
+DFS explores or traverses datastructures, such as trees and graphs. 
+
+You start at the root node, in case of a graph you can use any node as a root, and examines each branch as far down as possible before backtracking.
+When a deadend occurs in any iteration, the DFS method traverses a network in a deathward motion, and uses a stack to remember to acquire the next vertex. 
+
+Outcomes of DFS are spanning trees, which is a graph that is devoid of loops. To implement DFS you need the stack structure with a maximum size equal to the total number of vertices in the graph. 
+To implement you need the following steps: 
+
+1. Create a stack with the total number of vertices in the graph as the size. 
+2. Choose any vertex as the traversal's beginning point. Push a visit to that vertex and add it to the stack. 
+3. Push any non-visited adjacent vertices of a vertex as the top of the stack to the top of the stack. 
+4. Repeat steps 3 and 4 until there's no more vertices to visit from the vertex at the top of hte stack. 
+5. If there are no new vertices to visit, go back and pop one from the stack using backtracking. 
+6. Continue using steps 3, 4, and 5 until the stack is empty. 
+7. When the stack is entirely unoccupied create a final spanning tree by deleting the graphs unused edges. 
+
+We should keep a visited array so we don't visit a vertex again or create an infinite loop. 
+
+BFS 
+Breadth First Search is a fundemental graph traversal algorithm. It begins with a node then first traverses all adjacent nodes. 
+Once all adjacent are visited, then their adjacent are traversed. This is different from DFS in a way that closest vertices are visited before others. 
+We mainly traverse vertices level by level. A lot of popular graph algorithms like Dijkstra's, Kahn's, and Prim's are based on BFS. 
+BFS can be used to detect cycle in a directed and undirected graph, find shortest path in an unweighted graph, and many more problems. 
+
+BFS from a given source: 
+The algo starts from a given source and explores all reachable vertics from the given source. It is similar to BF-traversal of a tree. 
+Like a tree we begin with the given source and traverse vertices level by level using a queue. The only catch is that, unlike trees, graphs may contain cycles, so we may come to the same node again.
+To avoid processing a node more than once we use a boolean visited array. 
+
+initialization: Enqueu the given source vertex into a queue and mark it as visited. 
+1. Exploration, while the queue is not empty dequeue a node from the queue and visit it. For each unvisited neighbor of the dequeued node we'll enqueue the neighbor and mark the neighbor as visited.
+2. Termination: repeat step 2 until the queue is empty. 
+
+This ensures that all nodes in the graph are visited in a bfs manner, starting from the starting node. 
+
+Example of BFS: 
+
+
+DIRECTIONS = [[0, 1], [1, 0], [0, -1], [-1, 0]]
+
+def breadth_first_search(map, start, target)
+  # Include an edge case
+  return 0 if start == target
+
+  width, height = map[0].size, map.size
+
+  queue = [start]
+  next_queue = []
+  visited = []
+
+  steps = 0
+
+  # We're going to walk through the queue until it's empty
+  while !queue.empty?
+    # Loop over each item in queue
+    queue.each do |position|
+      x, y = position
+
+      # Did we visit this already? If yes, skip
+      next if visited.include?(position)
+      visited.push(position)
+
+      # Is this a wall in the maze? If so, skip
+      next if map[x][y] == '#'
+
+      # Have we reached the target? If yes, return steps
+      return steps if target == position
+
+      # Try to take another step in each direction
+      DIRECTIONS.each do |dx, dy|
+        new_x, new_y = x + dx, y + dy
+
+        # Check if we're out of bounds
+        next if new_x < 0 || new_y < 0
+        next if new_x >= width || new_y >= height
+
+        # Add the new position to the next queue
+        next_queue << [new_x, new_y]
+      end
+    end
+
+    # Now we'll swap the queues, and start processing the next_queue
+    # and replace next_queue with a new empty queue
+    queue, next_queue = next_queue, []
+    
+    # Since this is BFS, we're going to increment the steps
+    # as we move through the steps in order.
+    steps += 1
+  end
+  # Unsolvable map if we get here
+  return -1
+end
+
+To run BFS on a graph that may be disconnected, you need to ensure you visit all nodes, even those that are not reachable from the starting node. 
+This can be achieved by iterating over all nodes and performing bfs from each unvisited node. 
+
+Initialize: a set to keep track of visited nodes, a queue for the bfs traversal. 
+Iterate over all nodes: if a node has not been visited, perform a bfs from that node. 
+BFS function: use a queue to perform the bfs iteratively, and mark nodes as visited as they're processed. 
+
+Example in ruby: 
+
+require 'set'
+
+def bfs(graph)
+  visited = Set.new
+
+  graph.keys.each do |node|
+    if !visited.include?(node)
+      bfs_visit(graph, node, visited)
+    end  
+  end
+end
+
+def bfs_visit(graph, node, visited)
+  queue = [node]
+  while !queue.empty?
+    node = queue.shift
+
+    next if visited.include?(node)
+    visited.add(node)
+
+    puts node
+
+    queue[node].each do |neighbor|
+      queue.push(neighbor) unless visited.include?(neighbor)
+    end
+  end    
+end
