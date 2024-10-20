@@ -58,3 +58,32 @@ from cte
 where spend>first_txn
 and spend> second_txn
 and r=3
+
+-- or, but slower
+
+select user_id, spend as third_transaction_spend,transaction_date as third_transaction_date
+from (select user_id,spend,transaction_date,
+lag(spend,2) over(partition by user_id order by transaction_date) first_txn,
+lag(spend) over(partition by user_id order by transaction_date) as second_txn,
+dense_rank() over(partition by user_id order by transaction_date) as r from transactions
+order by user_id,transaction_date) as cte
+where spend>first_txn
+and spend> second_txn
+and r=3
+
+-- but prefer this one as it's easier to read and understand
+WITH CTE AS (
+    SELECT *,
+        rank() OVER (PARTITION BY user_id ORDER BY transaction_date) as rnk
+    FROM transactions
+)
+
+SELECT 
+    user_id, 
+    spend as third_transaction_spend, 
+    transaction_date as third_transaction_date
+FROM (select *, rank() over (partition by user_id order by spend) as spend_rnk
+      from CTE
+      where rnk <=3) as a
+WHERE rnk = 3 and spend_rnk = 3
+ORDER BY user_id;
