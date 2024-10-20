@@ -357,3 +357,79 @@ def bfs_visit(graph, node, visited)
   end    
 end
 
+Merge Sort: 
+A sorting algorithm that uses the divide and conquer strategy to effencitly sort a list of elements in ascending order.
+Steps: 
+1. Divide: Split the list into two halves 
+2. Conquer: repeat the vidivde step on each half until each sublist has only one element. 
+3. Combine: Merge the sublists back together, putting the lowest value first to create a sorted list.
+
+The merge sort algo is recursive, meaning that the function calls itself. The time complexity is O(nlog(n))
+which means it scales well as the numbers of elements increase. 
+
+You can think of merge sort like a organizing a deck of cards. You divide the deck in half, then in half again, until you have a single card, then you merge the cards back together two at a time, then four at a time, and so on.
+
+Example: 
+[38, 27, 43, 10]
+[38, 27], [43, 10]
+[38] [27] [43] [10]
+
+Conquer: 
+They are all already sorted in their individual arrays
+
+Merge: 
+Merge 38 and 27, to get [27, 38], and 43 and 10 to get [10, 43]
+Merge the two arrays to get [10, 27, 38, 43]
+
+Code Example: 
+def merge_sort(arr)
+  return arr if arr.length <= 1 # if there's only 1 element return the array
+  mid = (arr.length / 2).floor # set our mid/partition to the length divided by 2 and set floor
+  left = merge_sort(arr[0...mid]) # our left array equals our merge_sort function, fed arr, and going from 0...mid
+  right = merge_sort(arr[mid...arr.length])
+
+  merge(left, right)
+end
+
+def merge(left, right)
+  sorted = []
+  until left.empty? || right.empty?
+    if (left.first <=> right.first) == -1
+      sorted << left.shift
+    else
+      sorted << right.shift
+    end
+  end
+  sorted + left + right
+end
+
+arr = [1, 45, 3, 22, 56, 89, 100, 12, 15]
+
+If you are doing a problem that asks finding the nodes at distance k or with equal number of hops or steps it is always bfs
+
+Quicksort: 
+Quick sort is a highly efficient sorting algo that uses the divide and conquer strategy to arrange elements 
+in order by selecting a pivot element, partitioning the array into elements smaller and larger than the pivot, 
+and then recrusively sorting each partition until the array is sorted.
+Essentially it repeatedly splits the data into smaller sub-arrays based on a chosen pivot value.
+It is faster for larger databases. 
+
+Three steps to quicksort
+1. choose a pivot, select an element from the array as the pivot. the choice of pivot can vary.
+2. Partition the array, rearrange the array around the pivot. After partitioning, all elements smaller than the pivot 
+will be on its left, and all elements greater than the pivot will be on its right. The pivot is then in its correct position and we can get the index.
+3. Recursively call, recursively apply the same process to the two partitioned sub-arrays (left and right of pivot)
+4. Base case: The recursion stops when there is only one element left in the sub-array, as a single element is already sorted
+
+Example of Quicksort in ruby:
+
+def quicksort(arr)
+  return [] if arr.empty?
+
+  temp = arr.dup
+
+  pivot = temp.delete_at(rand(temp.length))
+  left, right = temp.partition{|i| i < pivot }
+
+  return [quicksort(left), pivot, quicksort(right)].flatten
+end
