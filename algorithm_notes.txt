@@ -434,3 +434,5 @@ def quicksort(arr)
   return [quicksort(left), pivot, quicksort(right)].flatten
 end
 
+Notes from video on Sliding window 
+
