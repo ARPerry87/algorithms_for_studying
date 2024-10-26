@@ -12,3 +12,6 @@ def solution(n)
 
   dp[n] # return the final result
 end
+
+# This template can be adapted for various dynamic programming problems by modifying the base case and the way the dp array is updated.
+# For example, you might need to change the initialization of the dp array, the range of the loops, or the way the dp array is updated based on the specific problem requirements.
