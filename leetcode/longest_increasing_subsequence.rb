@@ -75,3 +75,14 @@ def length_of_lis(nums)
   end
   memo.size
 end
+
+# then using b_search
+
+def length_of_lis(nums)
+  piles = [nums.shift]
+  nums.each do |e|
+    # we use bsearch_index to find the index of the first element that is greater than or equal to e
+    piles[piles.bsearch_index{ _1 >= e} || piles.length] = e # we use the _1 to refer to the first argument in the block, representing each element in the piles array during the search.
+  end
+  piles.length  
+end

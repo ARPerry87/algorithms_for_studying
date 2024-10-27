@@ -1,0 +1,147 @@
+Sorting algorithms are algorithms that makes theinput data set arranged in a certain order.
+The fundemental task is to put the items in the desired order so 
+that the records are re-arranged for making searching easier. 
+
+1. Selection Sort
+- This sorts an array by repeatedly finding the minimum element(considering ascending order) 
+  from the unsorted part and putting it in the beginning. 
+  It does this by maintaining two subarrays in a given array, 
+  the subarray which is already sorted, and the remeaining subarray which isn't. 
+  In every iteration it moves the min element from the unsorted and moved to sorted.
+
+  When to use selection sort: 
+    - When the list is small, as the time complexity of selection sort is O(n^2) 
+    - When memory space is limited because it takes the minimum possible number of swaps during sorting. 
+
+2. Bubble Sort 
+  - do not use this in interviews 
+  - The simplies sorting algorithm that works by repeatedly swapping the adjacent elements until everything is sorted.
+    If we have a total of n elements, then we need to repeat the above process for n-1 times.
+
+  When to use: 
+    Works well with large datasets where the items are almost sorted because it only takes one iteration to detect whether it's sorted or not. 
+    But if the list is unsorted, to a large extent, then this algorithm holds good for small datasets and lists. 
+    The fastest on an extremely small or nearly sorted set of data. 
+
+3. Insertion Sort 
+  - Places an unsorted element at its suitable place in each iteration. 
+
+  When to use it: 
+    - If the data is nearly sorted or the list is small as it has an O(n^2) and if it is sorted 
+      a minimum number of elements will slide over to insert the element in its correct location. 
+    - This is stable and fast when list is nearly sorted. 
+    - The usage of memory is a constraint as it has space complexity of O(1)
+
+4. Merge Sort
+  - Divide and Conquer, it divides the input into two halves, calls itself for the two halves, 
+    then merges the two sorted halves. 
+    The merge function is used for merging two halves. 
+    The merge(arr, l, m, r) is a key process that assumes that arr[l...m] and arr[m+1...r] 
+    are sorted and merges the two sorted subarrays into one.
+
+  When to use: 
+    - Data structure doesn't support random access since it works with pure sequential access that is forward iterators, rather than random. 
+    - Widely used for external sorting, where random access can be very expensive
+    - It is used when it is knkown the data is similar data. 
+    - Merge sort is fast in the case of linked lists. 
+    - It is used in the case of a linked list as in the linked list for accessing any data 
+      at some index we need to traverse from the head to that index and merge sort accesses data sequentially. 
+    - The main advantage of merge sort is its stability, the elements compared equally retain their order. 
+
+5. Quick Sort
+  - Another Divide and Conquer. Picks an element as a pivot and partitions the given list around the picked pivot. 
+    After partitioning the list on the basis of the pivot element, the Quick is again applied recursively to two sublists
+    i.e. the sublist to the left of the pivot and the sublist to the right of the pivot. 
+
+  When to use: 
+    - Quick sort is the fastest but its not always, O(nlogn) as there are worst cases where it becomes O(n^2).
+    - Quicksort is probably more effective for datasets that fit in memory. For larger, merge sort would be preferred. 
+    - Quicksort is an in-place sort(i.e. it doesn't require extra storage) so it is appropriate to use it for arrays.
+
+6. Bucket Sort
+  - Bucket sort works by distributing the elements of an array into a number of buckets. 
+    Each bucket is then sorted individually and is appended into one array. 
+    It is quite a stable algorithm as once the elements are distributed into buckets, 
+    each bucket can be processed independently of the others.
+
+  When to use it: 
+    - It is used to speed up the sorting process because the process of placing items into buckets and then sorting them in smaller amounts is much faster than any other linear sorting algorithm such as the bubble sort.
+    - It is very useful when input is uniformly distributed over a range.
+    - Another advantage of bucket sort is that it can be used as an external sorting algorithm.
+    - Best Case: O(N + K)
+      Average Case: O(N)
+      Worst Case: O(N2)
+      Space Complexity: O(N*K)
+
+7. DFS - depth firsth search 
+  - Depth-First Search (DFS) is an algorithm for traversing or searching tree or graph data structures. 
+    The algorithm starts at the root node (or an arbitrary node of a graph, sometimes referred to as a "search key") 
+    and explores as far as possible along each branch before backtracking. 
+    DFS employs a stack data structure to keep track of the next vertex to explore. 
+    This comes into play when the algorithm reaches a dead end during any iteration.
+
+    This is often a recurisve algorithm that's broken up into two methods.
+
+    Typical steps for DFS: 
+
+    - Start by pushing the graph's root node onto the stack.
+    - Pop the top node from the stack and mark it as visited.
+    - Create a list of that vertex's adjacent nodes. Push the ones that have not yet been visited onto the stack.
+    - Repeat steps 2 and 3 until the stack is empty.
+
+    When to use: 
+
+    DFS is particularly useful in scenarios where you want to visit every node in the graph, 
+    and the order in which the nodes are visited is important.
+    It is commonly employed in scenarios such as finding the connected components of a graph, 
+    pathfinding for games, detecting cycles in graphs, and many others.
+
+    One important aspect to note about DFS is its tendency to get caught in an infinite loop 
+    when dealing with cycles. To avoid this, one can employ a boolean visited array. 
+    If we revisit a node that we've already marked as visited,
+    we can terminate the traversal and conclude that the graph contains a cycle.
+
+8. BFS - breadth first search 
+  - Breadth-First Search (BFS) is a graph traversal algorithm that explores nodes in a graph in breadthward motion.
+    It uses a queue to remember the next vertex from which to start a search when a dead end occurs in any iteration. 
+    This algorithm traverses or searches a graph in a breadthward manner, meaning it first explores all the nodes at 
+    the current level before moving on to nodes at the next level.
+
+   - BFS begins traversal from the root node (or any arbitrary node in the case of a disconnected graph) 
+     and visits nodes in a level-by-level manner, visiting nodes that are at an increasing distance from the start. 
+
+   - Typical steps for BFS:
+     
+      - Start with the source node.
+      - Add that node at the front of the queue to the visited list.
+      - Make a list of the nodes as visited that are close to that vertex.
+      - And dequeue the nodes once they are visited. 
+      - Repeat the actions until the queue is empty.
+
+  When to use it: 
+    - The shortest path in an unweighted graph is the one with the fewest edges. 
+      You always reach a vertex from a given source using the fewest amount of edges when utilizing breadth-first. 
+    - Breadth-First Search is used to discover all neighbor nodes in peer-to-peer networks like BitTorrent.
+    - Crawlers create indexes based on breadth-first. The goal is to start at the original page and follow all of the links there, then repeat
+    - You can use a breadth-first search to identify persons within a certain distance 'd' from a person in social networks up to 'd's levels.
+    - GPS navigation to find all nearby locations, utilize the breadth-first search method.
+    - A broadcast packet in a network uses breadth-first search to reach all nodes.
+    - Garbage collection for duplicating garbage collection. Because of the better locality of reference, breadth-first search is favored over the Depth First Search algorithm.
+    - Cycle detection in graph 
+    - Identifying routes see if there is a path between two vertices, you can use either Breadth-First or Depth First Traversal.
+    - Finding all nodes with one connected component locate all nodes reachable from a particular node, you can use either Breadth-First or Depth First Traversal.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
