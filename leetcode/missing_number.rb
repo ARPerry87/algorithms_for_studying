@@ -29,3 +29,24 @@ def missing_number(nums)
   size = nums.size
   size * (size + 1) / 2 - nums.sum
 end
+
+# or using binary search for sorted array
+# if the input is guaranteed to be sorted
+# and contains distinct numbers
+# this will have O(log n) time complexity
+# and O(1) space complexity
+
+def missing_number(nums)
+  nums.sort!
+  l, r = 0, nums.size - 1
+  while l <= r 
+    mid = l + (r - l) / 2
+    if nums[mid] == mid
+      l = mid + 1
+    else
+      r = mid - 1
+    end
+  end
+
+  l # l will be the missing number
+end
