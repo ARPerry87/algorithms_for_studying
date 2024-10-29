@@ -15,9 +15,3 @@ def dfs_helper(node, visited)
     dfs_helper(neighbor, visited) # recursively call dfs_helper for each neighbor
   end
 end
-
-# Example usage:
-# Assuming you have a graph represented as a set of nodes with neighbors
-# dfs(start_node) # start the DFS traversal from the start_node
-# Note: Make sure to require 'set' if you're using Ruby's Set class. 
-# You can

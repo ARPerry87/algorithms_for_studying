@@ -12,3 +12,16 @@ def solution(arr)
 
   result # return the sorted result
 end
+
+# Now for a max heap
+
+def solution(arr)
+  heap = Heap.new(arr, :max)
+  res = []
+  
+  until heap.empty?
+    res << heap.pop
+  end
+
+  res
+end

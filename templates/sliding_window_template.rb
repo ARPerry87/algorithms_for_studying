@@ -21,3 +21,32 @@ def find_substring(s)
 
   d # Return the length of the longest substring
 end
+
+# or like this 
+
+def sliding_window(s, k)
+  # Initialize variables
+  window_start = 0
+  max_length = 0
+  char_frequency = Hash.new(0) # Frequency map for characters in the current window
+
+  # Iterate over the string with the window end
+  s.each_char.with_index do |char, window_end|
+    # Add the current character to the frequency map
+    char_frequency[char] += 1
+
+    # Shrink the window if it exceeds the allowed size or condition
+    while char_frequency.size > k
+      left_char = s[window_start]
+      char_frequency[left_char] -= 1
+      char_frequency.delete(left_char) if char_frequency[left_char] == 0
+      window_start += 1
+    end
+
+    # Update the maximum length of the window
+    max_length = [max_length, window_end - window_start + 1].max
+  end
+
+  # Return the result (e.g., max_length, the longest substring, etc.)
+  max_length
+end

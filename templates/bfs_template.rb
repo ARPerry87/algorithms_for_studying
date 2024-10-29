@@ -1,5 +1,7 @@
 # A BFS template for traversing a graph or tree
 
+require 'set' # require the set library
+
 def bfs(root)
   return if root.nil? # return if the root is nil
   queue = [root] # initialize the queue with the root node
@@ -13,7 +15,7 @@ def bfs(root)
     puts node # process the node (e.g., print it)
 
     node.neighbors.each do |neighbor| # iterate through each neighbor of the node
-      queue << neighbor unless visited.include?(neighbor) # enqueue unvisited neighbors
+      queue << neighbor unless visited.include?(neighbor) # enqueue unvisited neighbors, neighbor is defined in the node object class
     end
   end
 end
