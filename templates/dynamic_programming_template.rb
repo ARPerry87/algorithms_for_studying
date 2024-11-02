@@ -15,3 +15,8 @@ end
 
 # This template can be adapted for various dynamic programming problems by modifying the base case and the way the dp array is updated.
 # For example, you might need to change the initialization of the dp array, the range of the loops, or the way the dp array is updated based on the specific problem requirements.
+# Understanding the recurrence relation and the base case is crucial for solving dynamic programming problems effectively.
+# The key idea is to break down the problem into smaller subproblems and build up the solution incrementally using the results of the subproblems.
+# By storing the results of subproblems in a table (dp array), you can avoid redundant calculations and improve the efficiency of the algorithm.
+# Dynamic programming is a powerful technique for solving optimization problems by breaking them down into simpler subproblems and reusing the results to find the optimal solution.
+# By following a systematic approach and using the right data structures, you can efficiently solve a wide range of dynamic programming problems.

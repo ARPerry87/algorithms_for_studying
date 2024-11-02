@@ -36,15 +36,15 @@ def sliding_window(s, k)
     char_frequency[char] += 1
 
     # Shrink the window if it exceeds the allowed size or condition
-    while char_frequency.size > k
-      left_char = s[window_start]
-      char_frequency[left_char] -= 1
-      char_frequency.delete(left_char) if char_frequency[left_char] == 0
-      window_start += 1
+    while char_frequency.size > k 
+      left_char = s[window_start] # Get the left most character of the window
+      char_frequency[left_char] -= 1 # Decrement the frequency of the left character
+      char_frequency.delete(left_char) if char_frequency[left_char] == 0 # Remove the character if its frequency is zero
+      window_start += 1 # Move the window start to the right
     end
 
     # Update the maximum length of the window
-    max_length = [max_length, window_end - window_start + 1].max
+    max_length = [max_length, window_end - window_start + 1].max # find the max length by comparing the current max length and the window size
   end
 
   # Return the result (e.g., max_length, the longest substring, etc.)

@@ -131,17 +131,4 @@ that the records are re-arranged for making searching easier.
     - Identifying routes see if there is a path between two vertices, you can use either Breadth-First or Depth First Traversal.
     - Finding all nodes with one connected component locate all nodes reachable from a particular node, you can use either Breadth-First or Depth First Traversal.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Checking for palindrome's will almost always be a two pointer algorithm. Example: 
