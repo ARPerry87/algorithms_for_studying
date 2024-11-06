@@ -9,7 +9,7 @@
 # nums[1] = 1 and nums[2] = 5.
  
 def maximum_difference(nums)
-  max_dif = -1 # initialize the maximum difference to -1
+  max_dif = -1 # initialize the maximum difference to -1 because we want to return -1 if no such i and j exists
   min_val = nums[0] # initialize the minimum value to the first element in the array
 
   for i in 0..nums.length-1 # iterate through the array from 0 to the length of the array - 1 (aka the last element)
@@ -21,4 +21,35 @@ def maximum_difference(nums)
   end
   max_dif
 
+end
+
+# faster and more concise
+
+def maximum_difference(nums)
+    min_element = nums[0]
+    max_difference = -1
+
+    (1...nums.length).each do |j|
+        if nums[j] > min_element
+            max_difference = [max_difference, nums[j] - min_element].max
+        else 
+            min_element = nums[j]
+        end
+    end
+
+    max_difference
+end
+
+def max_difference(nums)
+  max_diff = -1
+  min_val = nums[0]
+
+  for i in 0..nums.length - 1
+    if nums[i] <= min_val
+      min_val = nums[i]
+    else
+        max_diff = [max_diff, nums[i] - min_val].max
+    end
+  end
+    max_diff
 end

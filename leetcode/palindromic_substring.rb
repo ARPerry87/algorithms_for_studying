@@ -24,7 +24,7 @@
  
 def count_substrings(s)
   count = 0 # initialize the count variable to 0
-  s.length.times do |i| # iterate through the string s
+  s.length.times do |i| # iterate through the string s using the index i by the length of the string
     count += expand(s, i, i) # call the expand method with the current index and the current index
     count += expand(s, i, i + 1) # call the expand method with the current index and the current index + 1
   end
@@ -39,34 +39,4 @@ def expand(s, left, right)
     right += 1 # increment the right index
   end
   count # return the count variable
-end
-
-# or without a helper method
-
-def count_substrings(s)
-  count = 0
-
-  s.each_char.with_index do |c, idx|
-    left = idx - 1
-    right = idx + 1
-    count += 1
-
-    while left >= 0 && right < s.length
-      break if s[left] != s[right]
-      left -= 1
-      right += 1
-      count += 1
-    end
-
-    left = idx 
-    right = idx + 1
-
-    while left >= 0 && right < s.length
-      break if s[left] != s[right]
-      left -= 1
-      right += 1
-      count += 1
-    end
-  end
-  count
 end

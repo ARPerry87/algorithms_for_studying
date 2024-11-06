@@ -46,16 +46,16 @@ def rotate(matrix)
 end
 
 def rotate(matrix)
-  n = matrix 
+  n = matrix.length
 
-  (0...n.length).each do |i|
-    (i...n.length).each do |j|
+  (0...n).each do |i|
+    (i...n).each do |j|
       matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
     end
   end
 
-  matrix.each do |row|
-    row.reverse!
+  matrix.each do |r|
+    r.reverse!
   end
 
   matrix

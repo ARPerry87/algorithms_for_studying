@@ -15,3 +15,22 @@ def dfs_helper(node, visited)
     dfs_helper(neighbor, visited) # recursively call dfs_helper for each neighbor
   end
 end
+
+# Without recursion
+
+def dfs(node)
+  visited = Set.new
+  stack = [node]
+
+  until stack.empty?
+    current = stack.pop 
+    next if visited.include?(current)
+
+    visited.add(current)
+    puts current
+
+    current.neighbors.each do |neighbor|
+      stack.push(neighbor) unless visited.include?(neighbor)
+    end
+  end
+end

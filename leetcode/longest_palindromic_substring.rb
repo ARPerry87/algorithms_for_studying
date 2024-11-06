@@ -41,25 +41,25 @@ def longest_palindrome_2(s)
   start = 0
   max_length = 1
 
-  dp = Array.new(s.length) { Array.new(s.length, false) }
+  dp = Array.new(s.length) { Array.new(s.length, false) } # Create a 2D array to store the results, dp[i][j] will be true if the substring from i to j is a palindrome
 
-  (0...s.length).each do |i|
+  (0...s.length).each do |i| # All substrings of length 1 are palindromes
     dp[i][i] = true
   end
 
-  (s.length - 1).downto(0) do |i|
-    (i + 1...s.length).each do |j|
-      if s[i] == s[j]
-        if j - i == 1 || dp[i + 1][j - 1]
-          dp[i][j] = true
-          if j - i + 1 > max_length
-            start = i
-            max_length = j - i + 1
+  (s.length - 1).downto(0) do |i| # Check for palindromes of length 2 or more
+    (i + 1...s.length).each do |j| # Check for palindromes of length 2 or more
+      if s[i] == s[j] # If the characters at i and j are equal
+        if j - i == 1 || dp[i + 1][j - 1] # If the substring from i + 1 to j - 1 is a palindrome
+          dp[i][j] = true # Mark the substring from i to j as a palindrome
+          if j - i + 1 > max_length # If the length of the current palindrome is greater than the maximum length
+            start = i # Update the start index
+            max_length = j - i + 1 # Update the maximum length
           end
         end
       end
     end
   end
 
-  s[start, max_length]
+  s[start, max_length] # Return the longest palindromic substring
 end

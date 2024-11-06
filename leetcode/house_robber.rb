@@ -21,8 +21,8 @@ def rob(nums)
   nums.each do |n|
     # we want to set the temp variable to the maximum of the first value plus the current value and the second value
     temp = [rob1 + n, rob2].max
-    rob1 = rob2
-    rob2 = temp
+    rob1 = rob2 # we want to set the first value to the second value so we can move to the next value
+    rob2 = temp # we want to set the second value to the temp value so we can move to the next value
   end
   rob2
 end

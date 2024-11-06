@@ -63,3 +63,23 @@ def spiral_order(matrix)
   end
   result
 end
+
+# Solution 2: Using pop and shift methods
+
+# We want to iterate in a way that we go through the matrix in a spiral order.
+
+def spiral_order(matrix)
+  return [] if matrix.empty? # return an empty array if the matrix is empty
+
+  result = [] # create a results array
+
+  while matrix.any? # while the matrix is not empty
+    result.concat(matrix.shift.compact) # add the first row of the matrix to the results array, removing nil values
+    break if matrix.empty? # break if the matrix is empty
+    matrix.each { |row| result << row.pop unless row.empty? || row.last.nil? } # add the last element of each row to the results array, removing nil values
+    result.concat(matrix.pop.reverse.compact) # add the last row of the matrix in reverse order to the results array, removing nil values
+    break if matrix.empty? # break if the matrix is empty
+    matrix.reverse.each { |row| result << row.shift unless row.empty? || row.first.nil? } # add the first element of each row in reverse order to the results array, removing nil values
+  end
+  result
+end
